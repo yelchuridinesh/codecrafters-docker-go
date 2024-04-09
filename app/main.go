@@ -13,16 +13,24 @@ func main() {
 
 	// Uncomment this block to pass the first stage!
 	//
-	command := os.Args[3]
-	args := os.Args[4:len(os.Args)]
+	command := os.Args[3] //it takes the third argument as a command to execute /usr/local/bin/docker-explorer/
+	// fmt.Println(command)
+	// fmt.Println(len(os.Args)) 
+	args := os.Args[4:len(os.Args)]  // from argument 4 until the end of arguments it take as  args
+	fmt.Println(args)
+	fmt.Println(args[0], args[1])
+	// fmt.Println(len(os.Args))
 	
 	cmd := exec.Command(command, args...)
+	fmt.Println(cmd)
+	//this cmd has /usr/local/bin/docker-explorer/ echo hey
 	
 	cmd.Stderr=os.Stderr
 	cmd.Stdout=os.Stdout
 	err:=cmd.Run()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "err: %v", err)
-		os.Exit(1)
+		//os.Exit(1)
+		os.Exit(cmd.ProcessState.ExitCode())
 	}
 }
