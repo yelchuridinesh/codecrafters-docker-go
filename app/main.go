@@ -22,8 +22,7 @@ func main() {
 	cmd.Stdout=os.Stdout
 	err:=cmd.Run()
 	if err != nil {
-		fmt.Printf("Err: %v", err)
-		fmt.Fprintf(os.Stderr, "err: %v\n", err)
+		fmt.Fprintf(os.Stderr, "err: %v", err)
 		os.Exit(1)
 	}
 }
