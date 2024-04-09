@@ -17,8 +17,6 @@ func main() {
 	// fmt.Println(command)
 	// fmt.Println(len(os.Args)) 
 	args := os.Args[4:len(os.Args)]  // from argument 4 until the end of arguments it take as  args
-	fmt.Println(args)
-	fmt.Println(args[0], args[1])
 	// fmt.Println(len(os.Args))
 	
 	cmd := exec.Command(command, args...)
