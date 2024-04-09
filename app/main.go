@@ -20,7 +20,6 @@ func main() {
 	// fmt.Println(len(os.Args))
 	
 	cmd := exec.Command(command, args...)
-	fmt.Println(cmd)
 	//this cmd has /usr/local/bin/docker-explorer/ echo hey
 	
 	cmd.Stderr=os.Stderr
