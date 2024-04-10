@@ -16,8 +16,7 @@ func main() {
 
 	// Uncomment this block to pass the first stage!
 	//
-	command := os.Args[3] //it takes the third argument as a command to execute /usr/local/bin/docker-explorer/
-	fmt.Println(command)
+	command := os.Args[3]           //it takes the third argument as a command to execute /usr/local/bin/docker-explorer/
 	args := os.Args[4:len(os.Args)] // from argument 4 until the end of arguments it take as  args
 
 	//chroot is isolated a process from  a main root process.
@@ -25,10 +24,8 @@ func main() {
 	//we need to execute to that chroot directory and change current root to the temporary root
 
 	chrootPath := path.Join(os.TempDir(), fmt.Sprintf("%d", os.Getpid())) //it gives a random temp directory by attaching a pid
-	//fmt.Println(chrootPath)
-	chrootCommand := path.Join(chrootPath, command) // for that temp directory it adds the command so /temp/pid//usr/local/bin/docker-explorer
-	//fmt.Println(chrootCommand)
-	err := os.MkdirAll(chrootPath, 0755) // creates the directory with the details /temp/<pid_number>/
+	chrootCommand := path.Join(chrootPath, command)                       // for that temp directory it adds the command so /temp/pid//usr/local/bin/docker-explorer
+	err := os.MkdirAll(chrootPath, 0755)                                  // creates the directory with the details /temp/<pid_number>/
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "temp dir err: %v", err)
 		os.Exit(1)
