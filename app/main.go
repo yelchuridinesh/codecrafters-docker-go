@@ -5,7 +5,6 @@ import (
 	"os"
 	"os/exec"
 	"path"
-	"strconv"
 	"syscall"
 )
 
@@ -56,10 +55,10 @@ func main() {
 	}
 	result.Close()
 
-	if os.Args[0] == "exit" {
-		exCode, _ := strconv.Atoi(os.Args[1])
-		os.Exit(exCode)
-	}
+	// if os.Args[0] == "exit" {
+	// 	exCode, _ := strconv.Atoi(os.Args[1])
+	// 	os.Exit(exCode)
+	// }
 
 	cmd := exec.Command(command, args...)
 	//this cmd has /usr/local/bin/docker-explorer/ echo hey
@@ -71,6 +70,6 @@ func main() {
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "err: %v", err)
 		//os.Exit(1)
-		//os.Exit(cmd.ProcessState.ExitCode()) --> this is alternate way of existing the process with the same exit code as argument
+		os.Exit(cmd.ProcessState.ExitCode()) //--> this is alternate way of existing the process with the same exit code as argument
 	}
 }
