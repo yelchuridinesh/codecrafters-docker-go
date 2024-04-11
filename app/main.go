@@ -1,3 +1,6 @@
+//go:build linux
+// +build linux
+
 package main
 
 import (
@@ -65,7 +68,18 @@ func main() {
 
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
-	cmd.SysProcAttr = &syscall.SysProcAttr{Chroot: chrootPath} // this is for changing the Chroot path from / to temp directory
+	// cmd.SysProcAttr = &syscall.SysProcAttr{Chroot: chrootPath, Cloneflags: syscall.CLONE_NEWPID} // this is for changing the Chroot path from / to temp directory
+	cmd.SysProcAttr = &syscall.SysProcAttr{
+		Chroot:     chrootPath,
+		Cloneflags: syscall.CLONE_NEWPID,
+		// this CLONE_NEWPID Unshare the PID namespace, so that the calling
+		// process has a new PID namespace for its children which is
+		// not shared with any previously existing process.  The
+		// calling process is not moved into the new namespace.  The
+		// first child created by the calling process will have the
+		// process ID 1 and will assume the role of init(1) in the
+		// new namespace
+	}
 	err = cmd.Run()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "err: %v", err)
