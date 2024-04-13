@@ -1,5 +1,6 @@
 //go:build linux
 // +build linux
+//the above commands are specific to Mac OS as it doesn't support the CLONE_NEWPID Cloneflags: syscall.CLONE_NEWPID
 
 package main
 
